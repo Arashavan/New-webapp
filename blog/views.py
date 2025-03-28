@@ -9,5 +9,3 @@ def blog_view(request):
 
 def blog_single(request):
     return render(request, 'blog/blog-single.html')
-
-
