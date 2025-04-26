@@ -4,6 +4,13 @@ from django.contrib.auth.models import User
 # Create your models here.
 
 
+class Category(models.Model):
+    name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+
 class Post(models.Model):
     image = models.ImageField(
         upload_to='blog/', default='blog/default.jpg')
@@ -11,12 +18,15 @@ class Post(models.Model):
     title = models.CharField(max_length=225)
     content = models.TextField()
     # tag
-    # category
+    category = models.ManyToManyField(Category)
     counted_views = models.IntegerField(default=0)  # default=0
     status = models.BooleanField(default=False)
     published_date = models.DateTimeField(null=True)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['created_date']
 
     def __str__(self):
         return (f"{self.id} - {self.title}")
