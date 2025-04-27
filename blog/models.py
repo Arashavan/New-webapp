@@ -19,9 +19,9 @@ class Post(models.Model):
     content = models.TextField()
     # tag
     category = models.ManyToManyField(Category)
-    counted_views = models.IntegerField(default=0)  # default=0
+    counted_view = models.PositiveIntegerField(default=0)
     status = models.BooleanField(default=False)
-    published_date = models.DateTimeField(null=True)
+    published_date = models.DateTimeField(null=True, blank=True)
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
 

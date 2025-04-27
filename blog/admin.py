@@ -8,7 +8,7 @@ class PostAdmin(admin.ModelAdmin):
     empty_value_display = '-empty-'
     # fields = ('title', 'published_date', 'status',)
     list_display = ('title', 'author', 'status',
-                    'created_date', 'counted_views')
+                    'created_date', 'counted_view')
     list_filter = ('status', 'author', 'category')
 
 
