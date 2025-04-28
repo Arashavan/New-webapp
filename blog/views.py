@@ -4,17 +4,17 @@ from django.utils import timezone
 # Create your views here.
 
 
-def blog_view(request):
-    posts = Post.objects.filter(status=1)
-    context = {'posts': posts}
-    return render(request, 'blog/blog-home.html', context)
+# def blog_view(request):
+#     posts = Post.objects.filter(status=1)
+#     context = {'posts': posts}
+#     return render(request, 'blog/blog-home.html', context)
 
 
 def blog_single(request, pid):
     """
     This Python function retrieves a single blog post based on the provided ID, increments the view
     count for that post, and renders a template with the post data.
-    
+
     :param request: The `request` parameter in the `blog_single` function is an HttpRequest object that
     represents the current HTTP request. It contains metadata about the request, such as headers,
     method, and user data. This parameter is typically passed to Django view functions to process and
