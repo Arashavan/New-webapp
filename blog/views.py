@@ -9,6 +9,12 @@ from django.utils import timezone
 #     context = {'posts': posts}
 #     return render(request, 'blog/blog-home.html', context)
 
+def blog_view(request):
+    posts = Post.objects.filter(
+        status=1, published_date__lte=timezone.now()).order_by('-published_date')
+    context = {'posts': posts}
+    return render(request, 'blog/blog-home.html', context)
+
 
 def blog_single(request, pid):
     posts = Post.objects.filter(
@@ -36,10 +42,3 @@ def test(request, pid):
     post = get_object_or_404(Post, pk=pid)
     context = {'post': post}
     return render(request, 'test.html', context)
-
-
-def blog_view(request):
-    posts = Post.objects.filter(
-        status=1, published_date__lte=timezone.now()).order_by('-published_date')
-    context = {'posts': posts}
-    return render(request, 'blog/blog-home.html', context)
