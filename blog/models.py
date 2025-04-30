@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.text import Truncator
 
 # Create your models here.
 
@@ -30,3 +31,6 @@ class Post(models.Model):
 
     def __str__(self):
         return (f"{self.id} - {self.title}")
+
+    def excerpt(self, num_words=4):
+        return Truncator(self.content).words(num_words, truncate=' ...')
