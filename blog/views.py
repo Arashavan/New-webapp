@@ -9,11 +9,14 @@ from django.utils import timezone
 #     context = {'posts': posts}
 #     return render(request, 'blog/blog-home.html', context)
 
-def blog_view(request, cat_name=None):
+def blog_view(request, cat_name=None, author_username=None):
     posts = Post.objects.filter(
         status=1, published_date__lte=timezone.now()).order_by('-published_date')
     if cat_name:
         posts = posts.filter(category__name=cat_name)
+    if author_username:
+        posts = posts.filter(author__username=author_username)
+
     context = {'posts': posts}
     return render(request, 'blog/blog-home.html', context)
 
