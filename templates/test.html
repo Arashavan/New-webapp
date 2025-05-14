@@ -5,27 +5,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>test-page</title>
 </head>
 
 <body>
-    <!-- {{posts}}
-    {% for post in posts %}
-    {% if post.status == 1 %}
-    <h1>{{post.title}}</h1>
-    <p>{{post.content}}</p>
-    <small>{{post.published_date}}</small>
-    {% endif %} -->
-    <!-- {% endfor %} -->
-    <!-- <p>{{post.title}}</p> -->
-    <!-- <h1>Testing page</h1>
-    <p>test: {% posts as totalposts %}</p>
-    {% for post in totalposts %}
-        <p>{{post.content|snippet:5}}</p>
-    {% endfor %} -->
-    <h1>Testing page</h1>
-    <p>test:</p>
-    <p>{% popularposts %}</p>
+
+    <form action="{% url 'website:test' %}" method="post">
+        {% csrf_token %}
+        <label for="">name: </label>  
+        <input name="name" type="text"><br>
+        <button type="submit">submit</button>
+    </form>
+
+
 </body>
 
 </html>
