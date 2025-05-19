@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from website.models import Contact
 from website.forms import ContactForm
+from django.contrib import messages
 
 
 # Create your views here.
@@ -20,6 +21,11 @@ def contact_view(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             form.save()
+            messages.add_message(request, messages.SUCCESS,
+                                 'Your from has been sent!')
+        else:
+            messages.add_message(request, messages.ERROR,
+                                 'Something Went Wrong!!!, Try again')
         form = ContactForm()
     return render(request, 'web_temp/contact.html')
 
