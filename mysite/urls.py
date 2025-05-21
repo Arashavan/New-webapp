@@ -20,9 +20,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 from website.sitemaps import StaticViewSitemap
+from blog.sitemap import BlogSitemap
 
 
-sitemaps = {'static': StaticViewSitemap, }
+sitemaps = {
+    'static': StaticViewSitemap,
+    'blog': BlogSitemap
+}
+
 urlpatterns = [
     path('', include('website.urls')),
     path('blog/', include('blog.urls')),

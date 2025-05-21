@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.text import Truncator
+from django.urls import reverse
 
 # Create your models here.
 
@@ -34,3 +35,6 @@ class Post(models.Model):
 
     def excerpt(self, num_words=4):
         return Truncator(self.content).words(num_words, truncate=' ...')
+
+    # def get_absolute_url(self):
+    #     return reverse('blog:single', kwargs={'pid': self.id})

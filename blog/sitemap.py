@@ -1,5 +1,6 @@
 from django.contrib.sitemaps import Sitemap
-from blog.models import Entry
+from blog.models import Post
+from django.urls import reverse
 
 
 class BlogSitemap(Sitemap):
@@ -7,7 +8,10 @@ class BlogSitemap(Sitemap):
     priority = 0.5
 
     def items(self):
-        return Entry.objects.filter(is_draft=False)
+        return Post.objects.filter(is_draft=False)
 
     def lastmod(self, obj):
-        return obj.pub_date
+        return obj.published_date
+
+    def location(self, item):
+        return reverse('blog:single', kwargs={'pid': item.id})
