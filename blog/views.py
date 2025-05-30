@@ -10,22 +10,53 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 #     context = {'posts': posts}
 #     return render(request, 'blog/blog-home.html', context)
 
-def blog_view(request, cat_name=None, author_username=None):
+# def blog_view(request, cat_name=None, author_username=None):
+#     posts = Post.objects.filter(
+#         status=1, published_date__lte=timezone.now()).order_by('-published_date')
+#     if cat_name:
+#         posts = posts.filter(category__name=cat_name)
+#     if author_username:
+#         posts = posts.filter(author__username=author_username)
+#     posts = Paginator(posts, 3)
+#     try:
+#         page_number = request.GET.get('page')
+#         posts = posts.get_page(page_number)
+#     except PageNotAnInteger:
+#         posts = posts.get_page(1)
+#     except EmptyPage:
+#         posts = posts.get_page(1)
+#     context = {'posts': posts}
+#     return render(request, 'blog/blog-home.html', context)
+
+def blog_view(request, cat_name=None, author_username=None, tag_slug=None):
     posts = Post.objects.filter(
         status=1, published_date__lte=timezone.now()).order_by('-published_date')
+
     if cat_name:
         posts = posts.filter(category__name=cat_name)
     if author_username:
         posts = posts.filter(author__username=author_username)
-    posts = Paginator(posts, 3)
+    if tag_slug:
+        # Assuming tags is a ManyToManyField
+        posts = posts.filter(tags__slug=tag_slug)
+
+    paginator = Paginator(posts, 3)
+    page_number = request.GET.get('page')
+
     try:
-        page_number = request.GET.get('page')
-        posts = posts.get_page(page_number)
+        posts = paginator.get_page(page_number)
     except PageNotAnInteger:
-        posts = posts.get_page(1)
+        posts = paginator.get_page(1)
     except EmptyPage:
-        posts = posts.get_page(1)
-    context = {'posts': posts}
+        posts = paginator.get_page(1)
+
+    context = {
+        'posts': posts,
+        'cat_name': cat_name,
+        'tag_slug': tag_slug,
+        'author_username': author_username,
+    }
+
     return render(request, 'blog/blog-home.html', context)
 
 
@@ -73,6 +104,3 @@ def blog_search(request):
         posts = posts.filter(content__contains=request.GET.get('s'))
     context = {'posts': posts}
     return render(request, 'blog/blog-home.html', context)
-
-
-

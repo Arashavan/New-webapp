@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     'robots',
     'taggit',
     'debug_toolbar',
-    'django.contrib.sitemaps'
+    'django.contrib.sitemaps',
+    'django_extensions'
 ]
 
 SITE_ID = 2
