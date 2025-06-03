@@ -42,10 +42,10 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'blog.apps.BlogConfig',
     'robots',
-    'taggit',
     'debug_toolbar',
     'django.contrib.sitemaps',
-    'django_extensions'
+    'django_extensions',
+    'taggit',
 ]
 
 SITE_ID = 2
